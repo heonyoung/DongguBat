@@ -1,5 +1,7 @@
 //main.dart
 import 'package:flutter/material.dart';
+import 'mypage.dart';
+import 'program_rent.dart';
 
 void main() {
   runApp(MyApp());
@@ -80,8 +82,8 @@ class _LogInstate extends State<LogIn> {
                                       primary: const Color.fromARGB(255, 44, 96,
                                           68)), // background onPrimary: Colors.white
                                   onPressed: () {
-                                    if (controller1.text == 'hyundo' &&
-                                        controller2.text == '1234') {
+                                    if (controller1.text == '' &&
+                                        controller2.text == '') {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -111,6 +113,7 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int _currentIndex = 0;
     return MaterialApp(
       home: Scaffold(
           // 상단바, 하단바, 메인화면으로 나눌때 주로 사용
@@ -145,6 +148,15 @@ class Main extends StatelessWidget {
                   print('arrow is clicked');
                 },
               ),
+              ListTile(
+                title: Text('프로그램/대관'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => program_apply()));
+                },
+              )
             ],
           )),
           bottomNavigationBar: BottomNavigationBar(
@@ -153,10 +165,28 @@ class Main extends StatelessWidget {
             selectedItemColor: const Color.fromARGB(255, 44, 96, 68),
             unselectedItemColor: Colors.grey,
             selectedLabelStyle: TextStyle(fontSize: 10),
+            currentIndex: _currentIndex,
+            onTap: (int index) {
+              // onTap 이벤트를 처리하고 적절한 페이지로 이동
+              if (index == 0) {
+                // '목록' 페이지로 이동
+              } else if (index == 1) {
+                // '홈' 페이지로 이동
+              } else if (index == 2) {
+                // '마이페이지' 페이지로 이동
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyPageScreen()),
+                );
+              }
+            },
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: '목록'),
               BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: '마이페이지'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: '마이페이지',
+              ),
             ],
           )),
     );
